@@ -1,0 +1,6 @@
+$if Bash
+  Space: magic-space
+$endif
+set show-all-if-ambiguous on
+set completion-ignore-case on
+set visible-stats on
