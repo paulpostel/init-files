@@ -2,13 +2,17 @@
 # ~/.bashrc: executed by bash(1) for non-login shells
 [[ ! -z "$debug_bash_startup" ]]        && echo ".bashrc start"
 
+# Source global definitions
+if [[ -f /etc/bashrc ]]; then
+    . /etc/bashrc
+fi
+
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
 
 export PS1='[\h:\u][\W] \# \$ '
-PATH=$HOME/bin:$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-export EDITOR=vi
+export EDITOR=vim
 
 
 export HISTTIMEFORMAT="%a %T "  # timestamp history list
@@ -23,7 +27,7 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-export VISUAL=vi
+export VISUAL=vim
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -117,18 +121,76 @@ vm() {
 
 gt() {
     labeltab "$1"
-    ssh $1 
+    ssh $1
     labeltab `shortname`
 }
 
-#better prompt
-#PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME%%.*}:${PWD/#$HOME/~}"; echo -ne "\007"'
 
 labeltab `shortname`
 
-export rvm_scripts_path=~/.rvm/scripts
-if [ -f ~/.rvm/scripts/rvm ]; then
-    source ~/.rvm/scripts/rvm
+RVM_DIR=~/.rvm
+if [[ -d "$RVM_DIR/scripts/rvm" ]]; then
+    source $RVM_DIR/scripts/rvm
 fi
 
-[ ! -z "$debug_bash_startup" ]          && echo ".bashrc end"
+if [[ -d $RVM_DIR/bin ]]; then
+    PATH=$HOME/bin:$PATH:$RVM_DIR/bin # Add RVM to PATH for scripting
+fi
+
+# Automatically guess your WEBROOT from your username:
+case "$(hostname)" in
+    oneweb-01.$LOGNAME.sb.lax1.rent.com)
+        WEBROOT=$HOME/rent-01
+        ;;
+    webapp-01.$LOGNAME.sb.lax1.rent.com)
+        WEBROOT=$HOME/rent-01
+        ;;
+    www-01.$LOGNAME.sb.lax1.rent.com)
+        WEBROOT=$HOME/rent-01
+        ;;
+    www-01.v-lax-$LOGNAME.rent.com)
+        WEBROOT=$HOME/rent-01
+        ;;
+    www-02.v-lax-$LOGNAME.rent.com)
+        WEBROOT=$HOME/rent-02
+        ;;
+    *)
+        WEBROOT=/company
+        ;;
+esac
+ 
+# Export the important envars
+export WEBROOT
+export RENT_HOME=$WEBROOT
+export ORACLE_HOME=/usr/local/oracle
+export PERL5LIB=$WEBROOT/lib${PERL5LIB:+:$PERL5LIB}
+
+# per comments in setup page at;
+# http://confluence.rent.com/pages/viewpage.action?pageId=31360544&focusedCommentId=33194758#comment-33194758&src=search
+MIGHT_BE_ORACLE_HOME=/usr/lib/oracle/11.2/client64
+if [[ -d "$MIGHT_BE_ORACLE_HOME" ]]; then
+    export ORACLE_HOME=$MIGHT_BE_ORACLE_HOME
+    export PATH=$ORACLE_HOME/bin:$PATH
+    if [[ -z "$LD_LIBRARY_PATH" ]]; then
+        export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+    else
+        export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
+    fi
+    export TNS_ADMIN=/usr/local/oracle/network/admin/
+fi
+ 
+# Load the custom .bashrc only if it exists
+if [[ -d "$RENT_HOME" ]]; then
+    source $RENT_HOME/bin/rent-bashrc
+    if [[ -d "$RENT_HOME/local-lib" ]]; then
+        source $RENT_HOME/local-lib/bashrc
+    fi
+fi
+ 
+ 
+# Add devweb binaries into the path if it exists
+if [[ -d "$RENT_HOME/devweb" ]]; then
+    export PATH=$RENT_HOME/devweb/bin:$PATH
+fi
+
+[ ! -z "$debug_bash_startup" ]  && echo ".bashrc end"
