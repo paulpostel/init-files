@@ -1,9 +1,9 @@
 # $Id: .bashrc 313 2014-02-06 02:14:16Z paul $
 # ~/.bashrc: executed by bash(1) for non-login shells
-[ ! -z "$debug_bash_startup" ]          && echo ".bashrc start"
+[[ ! -z "$debug_bash_startup" ]]        && echo ".bashrc start"
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[[ -z "$PS1" ]] && return
 
 export PS1='[\h:\u][\W] \# \$ '
 PATH=$HOME/bin:$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -23,7 +23,7 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-export VISUAL=/usr/bin/vi
+export VISUAL=vi
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -56,8 +56,8 @@ fi
 
 # dirs
 alias d='dirs'
-alias cur="cd $FLOW_RELEASE"
-alias +cur="pushd $FLOW_RELEASE"
+alias cur="cd $RENT_HOME"
+alias +cur="pushd $RENT_HOME"
 alias +='pushd'
 alias +2='pushd +2'
 alias +3='pushd +3'
@@ -90,13 +90,6 @@ r_www()     { labeltab "www-01";ssh www-01.ppostel.sb.lax1.rent.com; labeltab `s
 r_oneweb()  { labeltab "oneweb";ssh oneweb-01.ppostel.sb.lax1.rent.com; labeltab `shortname`; }
 r_webapp()  { labeltab "webapp";ssh webapp-01.ppostel.sb.lax1.rent.com; labeltab `shortname`; }
 
-# This is where an updated version of java which gets installed in this weird location
-# on mac os x after an java download from oracle -- psp 20141008
-JAVA_ON_OSX_MAVERICKS="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
-if [ -e "$JAVA_ON_OSX_MAVERICKS" ]; then
-    export JAVA_HOME=$JAVA_ON_OSX_MAVERICKS
-fi
-
 # svn
 alias sstat='svn status -u'
 alias sprops="svn propset svn:keywords 'Date Author Revision Id'"
@@ -122,39 +115,11 @@ vm() {
     labeltab `shortname`
 }
 
-# Nami-related
-export FLOW_RELEASE_BASE=/web/flowproduct/releases
-alias fe='env | egrep "FLOW_RELEASE|PERL5LIB"'
 gt() {
     labeltab "$1"
-    ssh $1.namimedia.com -l root
+    ssh $1 
     labeltab `shortname`
 }
-
-# change Flow environment to use the release name given
-function sp() {
-    rel=$1;
-    if [ ! -e $FLOW_RELEASE_BASE/$rel ]; then
-        echo "release \"$rel\" not found in release dir \"$FLOW_RELEASE_BASE\"";
-        return;
-    fi
-    export FLOW_RELEASE=$FLOW_RELEASE_BASE/$rel;
-    export PERL5LIB=$FLOW_RELEASE/modules;
-    export PATH="$FLOW_RELEASE/bin:$PATH";
-    fe;
-}
-
-function flowreleasehere() {
-    base=`pwd`;
-    export FLOW_RELEASE=$base;
-    export PERL5LIB=$FLOW_RELEASE/modules;
-    export PATH="$FLOW_RELEASE/bin:$PATH";
-    fe;
-}
-
-if [ -d "$FLOW_RELEASE_BASE/ticket" ]; then
-    sp ticket
-fi
 
 #better prompt
 #PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME%%.*}:${PWD/#$HOME/~}"; echo -ne "\007"'
