@@ -3,8 +3,10 @@
 .Trash
 .bash_history
 .cups
+.gitconfig
+.sqldeveloper
 .ssh
-.vimrc
+.viminfo
 Desktop
 Documents
 Downloads
