@@ -10,7 +10,7 @@ fi
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
 
-export PS1='[\h:\u][\W] \# \$ '
+export PS1='[\h:\u][\W] \! \$ '
 
 export EDITOR=vim
 
@@ -24,8 +24,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=100000
+HISTFILESIZE=200000
 
 export VISUAL=vim
 
@@ -75,7 +75,6 @@ alias -- -5='popd +5'
 
 # misc
 alias shortname='hostname -s'
-alias sswap='/usr/etc/pstat -s'
 alias h='history'
 alias hg='history | grep'
 
