@@ -127,6 +127,10 @@ gt() {
 
 labeltab `shortname`
 
+# pickup local/bin/perl first, amongst others
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PERL5LIB=$HOME/perl5/lib
+
 RVM_DIR=~/.rvm
 if [[ -d "$RVM_DIR/scripts/rvm" ]]; then
     source $RVM_DIR/scripts/rvm
