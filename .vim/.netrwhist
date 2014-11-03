@@ -1,3 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/home/ppostel/oradiag_ppostel/diag/clients/user_ppostel/host_1491917043_80/incident'
