@@ -8,6 +8,7 @@ Documents
 Downloads
 .DS_Store
 .gitconfig
+.lesshst
 Library
 Movies
 Music
@@ -21,4 +22,5 @@ tmp
 .tnsnames.ora
 .Trash
 .viminfo
+.vim/.netrwhist
 VirtualBox VMs
