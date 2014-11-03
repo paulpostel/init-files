@@ -60,8 +60,6 @@ fi
 
 # dirs
 alias d='dirs'
-alias cur="cd $RENT_HOME"
-alias +cur="pushd $RENT_HOME"
 alias +='pushd'
 alias +2='pushd +2'
 alias +3='pushd +3'
@@ -188,6 +186,7 @@ if [[ -d "$RENT_HOME" ]]; then
     if [[ -d "$RENT_HOME/local-lib" ]]; then
         source $RENT_HOME/local-lib/bashrc
     fi
+    alias +r="pushd $RENT_HOME"
 fi
  
  
