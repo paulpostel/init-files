@@ -21,4 +21,5 @@ tmp
 .tnsnames.ora
 .Trash
 .viminfo
+.vim/.netrwhist
 VirtualBox VMs
