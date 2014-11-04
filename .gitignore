@@ -6,8 +6,11 @@ Applications
 Desktop
 Documents
 Downloads
+Dropbox
+.dropbox
 .DS_Store
 .gitconfig
+.hgignore_global
 .lesshst
 Library
 Movies

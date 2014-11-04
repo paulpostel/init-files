@@ -1,0 +1,42 @@
+#!/usr/local/bin/perl
+
+use warnings;
+use strict;
+use Getopt::Long;
+use File::Basename;
+
+my $prg = basename( $0 );
+
+my $wantsFirst;
+my $verbose;
+
+my $usage = <<EOT;
+usage: $prg
+    [-1]                # return the first entry found, rather than all of them
+    [--verbose|-v]      # print paths being checked
+    module
+EOT
+
+unless ( GetOptions( 
+        "1"             => \$wantsFirst,
+        "verbose"       => \$verbose,
+    ) && @ARGV == 1 ) {
+    warn $usage;
+    exit 1;
+}
+
+my $module_or_file = $ARGV[0];
+$module_or_file =~ s{::}{/}g;
+$module_or_file .= ".pm" unless $module_or_file =~ /\.pl$/;
+
+foreach my $dir ( @INC ) {
+    my $path = "$dir/$module_or_file";
+    print "$dir:\n" if $verbose;
+    if ( -f $path ) {
+        print "  " if $verbose;
+        print $path, "\n";
+        last if $wantsFirst;
+    }
+}
+
+exit 0;
