@@ -29,13 +29,17 @@ my $module_or_file = $ARGV[0];
 $module_or_file =~ s{::}{/}g;
 $module_or_file .= ".pm" unless $module_or_file =~ /\.pl$/;
 
+my %searched;   # don't search paths more than once
 foreach my $dir ( @INC ) {
     my $path = "$dir/$module_or_file";
-    print "$dir:\n" if $verbose;
-    if ( -f $path ) {
-        print "  " if $verbose;
-        print $path, "\n";
-        last if $wantsFirst;
+    unless ( $searched{$path} ) {
+        print "$dir:\n" if $verbose;
+        if ( -f $path ) {
+            print "  " if $verbose;
+            print $path, "\n";
+            last if $wantsFirst;
+        }
+        $searched{$path} = 1;
     }
 }
 
