@@ -78,6 +78,7 @@ alias hg='history | grep'
 
 # csh help
 alias rehash='hash -r'
+alias showf='declare -f '
 
 # hosts
 chameleon()     { labeltab "Chameleon";ssh chameleon.yasl.net; labeltab `shortname`; }
