@@ -1,4 +1,5 @@
 filetype indent plugin on
+syntax on
 set gfn=Vera\ Sans\ Mono:h16
 set nocompatible
 set incsearch
