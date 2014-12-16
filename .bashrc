@@ -7,6 +7,15 @@ if [[ -f /etc/bashrc ]]; then
     . /etc/bashrc
 fi
 
+uname=`uname`
+if [[ "$uname" == 'Darwin' ]]; then
+    OS="OSX"
+elif [[ "$uname" == 'Linux' ]]; then
+    OS="LINUX"
+else
+    OS="UNKNOWN"
+fi
+
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
 
@@ -103,10 +112,17 @@ alias hfs='sudo -u hdfs hadoop fs'
 # window-related stuff
 alias initvt='echo c'
 alias lspager='less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init'
-lf()           { env CLICOLOR_FORCE=1 \ls  -GFC $@ | lspager; }
-laf()          { env CLICOLOR_FORCE=1 \ls -GAFC $@ | lspager; }
-lt()           { env CLICOLOR_FORCE=1 \ls -Glt $@ | lspager; }
-lat()          { env CLICOLOR_FORCE=1 \ls -GlAt $@ | lspager; }
+if [[ "$OS" == 'OSX' ]]; then
+    alias lscmd='env CLICOLOR_FORCE=1 \ls'
+elif [[ "$OS" == 'LINUX' ]]; then
+    alias lscmd='\ls --color=always'
+else
+    alias lscmd='ls'
+fi
+lf()           { lscmd  -FC $@ | lspager; }
+laf()          { lscmd -AFC $@ | lspager; }
+lt()           { lscmd -lt $@ | lspager; }
+lat()          { lscmd -lAt $@ | lspager; }
 labelicon()    { echo -n "]1;$1"; }
 labelwin()     { echo -n "]2;$1"; } # window title only
 labeltab()     { echo -n "]0;$1"; } # tab title only
