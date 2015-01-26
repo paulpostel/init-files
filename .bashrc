@@ -1,5 +1,6 @@
 # $Id: .bashrc 313 2014-02-06 02:14:16Z paul $
 # ~/.bashrc: executed by bash(1) for non-login shells
+#debug_bash_startup=1
 [[ ! -z "$debug_bash_startup" ]]        && echo ".bashrc start"
 
 # Source global definitions
@@ -147,12 +148,12 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PERL5LIB=$HOME/perl5/lib
 
 RVM_DIR=~/.rvm
-if [[ -d "$RVM_DIR/scripts/rvm" ]]; then
+if [[ -x "$RVM_DIR/scripts/rvm" ]]; then
     source $RVM_DIR/scripts/rvm
 fi
 
 if [[ -d $RVM_DIR/bin ]]; then
-    PATH=$HOME/bin:$PATH:$RVM_DIR/bin # Add RVM to PATH for scripting
+    PATH=$PATH:$RVM_DIR/bin # Add RVM to PATH for scripting
 fi
 
 # Automatically guess your WEBROOT from your username:
@@ -213,3 +214,4 @@ if [[ -d "$RENT_HOME/devweb" ]]; then
 fi
 
 [ ! -z "$debug_bash_startup" ]  && echo ".bashrc end"
+
