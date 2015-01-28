@@ -101,6 +101,7 @@ pebble()	{ labeltab "Pebble";ssh pebble.localhost;labeltab `shortname`; }
 r_www()     { labeltab "www-01";ssh www-01.ppostel.sb.lax1.rent.com; labeltab `shortname`; }
 r_oneweb()  { labeltab "oneweb";ssh oneweb-01.ppostel.sb.lax1.rent.com; labeltab `shortname`; }
 r_webapp()  { labeltab "webapp";ssh webapp-01.ppostel.sb.lax1.rent.com; labeltab `shortname`; }
+r_ruby()  { labeltab "rruby";ssh ppostel.dev.lax.primedia.com; labeltab `shortname`; }
 
 # svn
 alias sstat='svn status -u'
@@ -211,6 +212,11 @@ fi
 # Add devweb binaries into the path if it exists
 if [[ -d "$RENT_HOME/devweb" ]]; then
     export PATH=$RENT_HOME/devweb/bin:$PATH
+fi
+
+# Source local definitions if there are any
+if [[ -f ~/.bash_local ]]; then
+    . ~/.bash_local
 fi
 
 [ ! -z "$debug_bash_startup" ]  && echo ".bashrc end"
