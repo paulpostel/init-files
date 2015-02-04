@@ -145,7 +145,7 @@ gt() {
 labeltab `shortname`
 
 # pickup local/bin/perl first, amongst others
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export PERL5LIB=$HOME/perl5/lib
 
 RVM_DIR=~/.rvm
@@ -155,6 +155,17 @@ fi
 
 if [[ -d $RVM_DIR/bin ]]; then
     PATH=$PATH:$RVM_DIR/bin # Add RVM to PATH for scripting
+fi
+
+if [[ -e /usr/local/share/chruby/chruby.sh ]]; then
+    source /usr/local/share/chruby/chruby.sh
+fi
+if [[ -e /usr/local/share/chruby/auto.sh ]]; then
+    source /usr/local/share/chruby/auto.sh
+fi
+
+if [ -f ~/.idg_profile ]; then
+    source ~/.idg_profile
 fi
 
 # Automatically guess your WEBROOT from your username:
