@@ -157,11 +157,15 @@ if [[ -d $RVM_DIR/bin ]]; then
     PATH=$PATH:$RVM_DIR/bin # Add RVM to PATH for scripting
 fi
 
-if [[ -e /usr/local/share/chruby/chruby.sh ]]; then
-    source /usr/local/share/chruby/chruby.sh
-fi
-if [[ -e /usr/local/share/chruby/auto.sh ]]; then
-    source /usr/local/share/chruby/auto.sh
+# two possible chruby paths, one for OS X, one for CentOs, sigh.
+chruby_path_one=/usr/share/chruby
+chruby_path_two=/usr/local/share/chruby
+if [[ -f "$chruby_path_one/chruby.sh" ]]; then
+    source "$chruby_path_one/chruby.sh"
+    source "$chruby_path_one/auto.sh"
+elif [[ -f "$chruby_path_two/chruby.sh" ]]; then
+    source "$chruby_path_two/chruby.sh"
+    source "$chruby_path_two/auto.sh"
 fi
 
 if [ -f ~/.idg_profile ]; then
