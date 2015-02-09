@@ -8,6 +8,9 @@ if [[ -f /etc/bashrc ]]; then
     . /etc/bashrc
 fi
 
+# increase open file limit or idg start complains
+ulimit -n 4096
+
 uname=`uname`
 if [[ "$uname" == 'Darwin' ]]; then
     OS="OSX"
