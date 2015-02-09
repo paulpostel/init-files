@@ -2,16 +2,29 @@
 .DS_Store
 .Trash
 .bash_history
+.bowerrc
+.bundle/
+.cache/
+.config/
 .cpan
 .cups
 .dropbox
+.erlang.cookie
 .gem/
+.gemrc
 .gitconfig
 .guard_history
 .hgignore_global
 .irb-history
 .lesshst
+.mysql_history
+.node-gyp/
+.npm/
+.nvm/
+.nvmrc
 .pry/
+.rubies/
+.ruby-version
 .rvm/
 .sqldeveloper
 .ssh
@@ -32,4 +45,5 @@ Public
 VirtualBox VMs
 oradiag_ppostel
 rent-01
+source/
 tmp
