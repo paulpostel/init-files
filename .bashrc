@@ -94,6 +94,11 @@ alias hg='history | grep'
 alias rehash='hash -r'
 alias showf='declare -f '
 
+# git
+
+alias restart_nginx='sudo nginx -s stop && sudo nginx'
+alias restart-nginx='restart_nginx'
+
 # hosts
 chameleon()     { labeltab "Chameleon";ssh chameleon.yasl.net; labeltab `shortname`; }
 macdaddy()	{ labeltab "MacDaddy";ssh macdaddy.yasl.net;labeltab `shortname`; }
