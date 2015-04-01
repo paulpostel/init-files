@@ -23,7 +23,7 @@ class OptParser
         options.host = h
       end
       opts.on("-b", "--bucket bucket", "Riak bucket") do |bucket|
-        options.bucket = b
+        options.bucket = bucket
       end
       opts.on("-p", "--port port", Integer, "Riak port") do |port|
         options.port = port
@@ -42,7 +42,7 @@ class OptParser
     end
 
     opt_parser.parse!(args)
-    if options.key.nil? then
+    if options.bucket_key.nil? then
       puts opt_parser.to_s
       exit 1
     end
