@@ -32,3 +32,4 @@ setopt COMPLETE_IN_WORD
 
 # autoload -U colors
 #colors
+[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn

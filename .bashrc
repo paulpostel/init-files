@@ -89,6 +89,9 @@ alias -- -5='popd +5'
 alias shortname='hostname -s'
 alias h='history'
 alias hg='history | grep'
+alias be='bundle exec'
+alias bu_itunes='rsync -avzh rsync -avzh Music /Volumes/ITUNES/A'
+alias bu-itunes='bu_itunes'
 
 # csh help
 alias rehash='hash -r'

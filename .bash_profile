@@ -7,3 +7,4 @@
 #bind Space:magic-space
 
 [[ ! -z "$debug_bash_startup" ]]        && echo ".bash_profile end"
+[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
